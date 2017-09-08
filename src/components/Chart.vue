@@ -14,51 +14,65 @@
     name: 'chart',
     data () {
       return {
+        measurements: [
+          {
+            date: '2014-08-30',
+            size: '150', // in cm
+            weight: '58' // in kg
+          },
+          {
+            date: '2015-08-30',
+            size: '154', // in cm
+            weight: '65' // in kg
+          },
+          {
+            date: '2016-08-30',
+            size: '167', // in cm
+            weight: '71' // in kg
+          },
+          {
+            date: '2017-08-30',
+            size: '173', // in cm
+            weight: '80' // in kg
+          }
+        ],
+        dates: [],
+        sizes: [],
+        weights: []
       }
     },
     mounted () {
+      this.extractData(this.measurements)
       this.initChart()
     },
     methods: {
+      extractData (data) {
+        data.map((m) => {
+          this.dates.push(m.date)
+          this.sizes.push(m.size)
+          this.weights.push(m.weight)
+        })
+      },
       initChart () {
         let context = document.getElementById('myChart')
         let chart = new Chart(context, {
-          type: 'bar',
+          type: 'line',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true
-                }
-              }]
-            }
+            labels: this.dates,
+            datasets: [
+              {
+                label: 'Taille',
+                data: this.sizes
+              },
+              {
+                label: 'Poids',
+                data: this.weights
+              }
+            ]
           }
         })
-        console.log(chart)
+        chart.canvas.parentNode.style.height = '500px'
+        chart.canvas.parentNode.style.width = '500px'
       }
     }
   }
@@ -66,10 +80,15 @@
 
 <style lang="stylus" scoped>
 .container
-  width 80vw
-  height 80vh
+  display flex
+  flex-direction column
+  justify-content center
+  max-width 80vw
   margin auto
   .chart-title
     font-size 25px
     text-align center
+    margin-bottom 20px
+  .chart
+    margin auto
 </style>
