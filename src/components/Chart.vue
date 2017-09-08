@@ -62,11 +62,21 @@
             datasets: [
               {
                 label: 'Taille',
-                data: this.sizes
+                data: this.sizes,
+                borderColor: 'rgba(255, 159, 64, 1)',
+                backgroundColor: 'rgba(255, 159, 64, 1)',
+                fill: false,
+                pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                pointStyle: 'rect'
               },
               {
                 label: 'Poids',
-                data: this.weights
+                data: this.weights,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: 'rgba(153, 102, 255, 1)',
+                fill: false,
+                pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                pointStyle: 'rect'
               }
             ]
           }
